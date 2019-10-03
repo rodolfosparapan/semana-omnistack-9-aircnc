@@ -1,0 +1,4 @@
+node_modules/
+.vs/
+backend/uploads
+backend/yarn.lock
