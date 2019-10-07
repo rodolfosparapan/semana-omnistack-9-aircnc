@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://sparapan:sparapan@cluster0-ncstq.mongodb.net/air
 const connectedUsers = {};
 io.on('connection', socket => {
    const { user_id } = socket.handshake.query;
-   console.log("user:" +user_id, "socket:"+socket.id);
+   console.log('novo-cliente:', user_id, 'id:' + socket.id);
    connectedUsers[user_id] = socket.id;
 });
 
