@@ -10,12 +10,13 @@ export default function Dashboard(){
     const [requests, setRequests] = useState([]);
 
     const user_id = localStorage.getItem('user');
-    const socket = useMemo(() => socketio('http://localhost:3333', {
+    const socket = useMemo(() => socketio('http://192.168.15.9:3333', {
         query: { user_id }
     }), [user_id]);
     
     useEffect(() => {
         socket.on('booking_request', data => {
+            console.log('novo agendamento', data);
             setRequests([...requests, data]);
         });
     }, [requests, socket]);
@@ -33,12 +34,12 @@ export default function Dashboard(){
 
     async function handleAccept(booking_id){
         await api.post(`/bookings/${booking_id}/approvals`);
-        setRequests(requests.filter(request => request._id != booking_id));
+        setRequests(requests.filter(request => request._id !== booking_id));
     }
 
     async function handleReject(booking_id){
         await api.post(`/bookings/${booking_id}/rejections`);
-        setRequests(requests.filter(request => request._id != booking_id));
+        setRequests(requests.filter(request => request._id !== booking_id));
     }
 
     return (
